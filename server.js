@@ -5,7 +5,6 @@ const path = require("path");
 
 const app = express();
 const port = 3000;
-// const upload = multer({ dest: __dirname + "/uploads/images" });
 
 // Set storage engine
 const storage = multer.diskStorage({
@@ -20,8 +19,28 @@ const storage = multer.diskStorage({
 
 // Init Upload
 const upload = multer({
-  storage: storage
+  storage: storage,
+  limits: { fileSize: 1000000 },
+  fileFilter: function(req, file, cb) {
+    checkFileType(file, cb);
+  }
 }).single("myImage");
+
+// Check File Type
+function checkFileType(file, cb) {
+  // Allowed ext
+  const filetypes = /jpeg|jpg|png|gif/;
+  // Check ext
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  // Check mime
+  const mimetype = filetypes.test(file.mimetype);
+
+  if (mimetype && extname) {
+    return cb(null, true);
+  } else {
+    cb("Error: Images Only!");
+  }
+}
 
 // EJS
 app.set("view engine", "ejs");
@@ -40,16 +59,18 @@ app.post("/upload", (req, res) => {
         msg: err
       });
     } else {
-      console.log(req.file);
-      res.send("test");
+      if (req.file == undefined) {
+        res.render("index", {
+          msg: "Error: No file selected"
+        });
+      } else {
+        res.render("index", {
+          msg: "File Uploaded",
+          file: `uploads/${req.file.filename}`
+        });
+      }
     }
   });
 });
-
-// app.post("/upload", upload.single("photo"), (req, res) => {
-//   if (req.file) {
-//     res.json(req.file);
-//   } else throw "error";
-// });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
