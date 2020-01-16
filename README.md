@@ -17,6 +17,8 @@ Dependencies
 
 - Materialize: Require jQuery!
   - Form: file input
+- Mongoose: MVC
+- dotenv: hide password, avoid hardconding, gitignore
 
 Folders:
 
@@ -43,4 +45,4 @@ function checkFileType(file, cb) {
 }
 ```
 
-Thanks to [YouTube](https://www.youtube.com/watch?v=9Qzmri1WaaE)
+Thanks to [YouTube](https://www.youtube.com/watch?v=9Qzmri1WaaE) and https://www.youtube.com/watch?v=vjf774RKrLc

@@ -2,9 +2,20 @@ const express = require("express");
 const multer = require("multer");
 const ejs = require("ejs");
 const path = require("path");
+const mongoose = require("mongoose");
+require("dotenv/config");
 
 const app = express();
 const port = 3000;
+
+// Connect to DB
+mongoose.connect(
+  process.env.DB_CONNECTION,
+  { useUnifiedTopology: true, useNewUrlParser: true },
+  () => {
+    console.log("Connected to DB");
+  }
+);
 
 // Set storage engine
 const storage = multer.diskStorage({
@@ -44,6 +55,11 @@ function checkFileType(file, cb) {
 
 // EJS
 app.set("view engine", "ejs");
+
+// Import Routes
+const postsRoute = require("./routes/posts");
+
+app.use("/posts", postsRoute);
 
 // Public folder
 app.use(express.static(path.join(__dirname, "public")));
