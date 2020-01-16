@@ -3,6 +3,7 @@ const multer = require("multer");
 const ejs = require("ejs");
 const path = require("path");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 require("dotenv/config");
 
 const app = express();
@@ -56,10 +57,8 @@ function checkFileType(file, cb) {
 // EJS
 app.set("view engine", "ejs");
 
-// Import Routes
-const postsRoute = require("./routes/posts");
-
-app.use("/posts", postsRoute);
+// Body parser
+app.use(bodyParser.json());
 
 // Public folder
 app.use(express.static(path.join(__dirname, "public")));
@@ -67,6 +66,11 @@ app.use(express.static(path.join(__dirname, "public")));
 app.get("/", (req, res) => {
   res.render("index");
 });
+
+// Import Routes
+const postsRoute = require("./routes/posts");
+
+app.use("/posts", postsRoute);
 
 app.post("/upload", (req, res) => {
   upload(req, res, err => {

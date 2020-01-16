@@ -19,6 +19,8 @@ Dependencies
   - Form: file input
 - Mongoose: MVC
 - dotenv: hide password, avoid hardconding, gitignore
+- body parser
+- Postman: test GET and POST request
 
 Folders:
 
