@@ -9,24 +9,25 @@
 </head>
 
 <body>
-  <h1>Blog</h1>
 
-  <% for(let i = 0; i < posts.length; i++) { %>
-  <article>
-    <p><%= i %><%= posts[i].description %></p>
-  </article>
-  <% } %>
+  <h1>Add Blog</h1>
 
-  <hr>
-  <h2>Add Blog</h2>
-
-  <form action="/posts" method="POST">
+  <form action="/posts/upload" method="POST">
     <span>Title</span>
     <input type="text" name="title" id="title">
     <span>Description</span>
     <textarea name="description"></textarea>
     <input type="submit" value="Add Post" />
   </form>
+  <hr>
+  <h1>Blog</h1>
+
+  <% for(let i = 0; i < posts.length; i++) { %>
+  <article>
+    <h4><%= i+1 %> <%= posts[i].title %></h4>
+    <p><%= posts[i].description %></p>
+  </article>
+  <% } %>
 </body>
 
 </html>

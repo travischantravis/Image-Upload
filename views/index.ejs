@@ -11,6 +11,16 @@
 
 <body>
   <div class="container">
+
+
+    <h1>Blog</h1>
+
+    <% for(let i = 0; i < posts.length; i++) { %>
+    <article>
+      <h4><%= i+1 %> <%= posts[i].title %></h4>
+      <p><%= posts[i].description %></p>
+    </article>
+    <% } %>
     <h1>Image Upload</h1>
     <%= typeof msg != 'undefined' ? msg : '' %>
     <form action="/upload" method="POST" enctype="multipart/form-data">

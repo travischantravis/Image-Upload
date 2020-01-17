@@ -6,20 +6,19 @@ router.get("/", async (req, res) => {
   try {
     const posts = await Post.find();
     res.render("post", { posts: posts });
-    res.json(posts);
-  } catch {
+  } catch (err) {
     res.json({ message: err });
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/upload", async (req, res) => {
   const post = new Post({
     title: req.body.title,
     description: req.body.description
   });
   try {
     const savedPost = await post.save();
-    res.json(savedPost);
+    res.redirect("/posts");
   } catch (err) {
     res.json({ message: err });
   }

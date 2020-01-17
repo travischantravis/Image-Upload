@@ -59,10 +59,12 @@ app.set("view engine", "ejs");
 
 // Body parser
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Public folder
 app.use(express.static(path.join(__dirname, "public")));
 
+// Root
 app.get("/", (req, res) => {
   res.render("index");
 });
@@ -76,6 +78,7 @@ const postsRoute = require("./routes/posts");
 
 app.use("/posts", postsRoute);
 
+// Image upload with Multer
 app.post("/upload", (req, res) => {
   upload(req, res, err => {
     if (err) {
