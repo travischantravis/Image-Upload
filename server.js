@@ -67,6 +67,10 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+// app.get("/blog", (req, res) => {
+//   res.render("post");
+// });
+
 // Import Routes
 const postsRoute = require("./routes/posts");
 

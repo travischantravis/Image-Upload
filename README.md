@@ -29,6 +29,7 @@ Folders:
     - images
 - views
   - index.ejs
+  - partials
 
 ```javascript
 function checkFileType(file, cb) {
